@@ -124,13 +124,13 @@ if( ! class_exists('Flexible_Templates') ) :
 		public function get_templates_list(){
 			$templates = acfft_get_templates();
 
-			//sorting alphabetically
-			usort($templates, array($this, 'cmp'));
 
 			$out = '<div class="acfft_flexible_templates button-primary">';
 				$out .= '<div class="selected">'.__("Saved Template's", 'acf-ft').'</div>';
 
 				if( $templates ){
+					//sorting alphabetically
+					usort($templates, array($this, 'cmp'));
 					$i = 1;
 					$out .= '<div class="acfft-dropdown">';
 						foreach ($templates as $key => $tmp) {
