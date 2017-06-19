@@ -1,0 +1,127 @@
+.acf-flexible-content li.acf-ft-save-wrap{
+    float: left;
+    margin-left: 0;
+    width: 50%;
+    min-width: 400px;
+}
+
+.acf-flexible-content li.acf-ft-save-wrap .acf-ft-template-name{
+    float: left;
+    width: 62%;
+    margin-right: 1%;
+}
+
+.acf-flexible-content li.acf-ft-save-wrap .acf-ft-save{
+    float: left;
+    width: 37%;
+    text-align: center;
+    box-shadow: none;
+}
+
+.acf-flexible-content .layout .acf-ft-save-wrap{
+   /* display: none;*/
+}
+
+
+
+.acfft_flexible_templates.button-primary{
+    position: relative;
+    padding: 3px 35px 3px 10px;
+    top: -4px;
+    float: right;
+    height: auto;
+    font-weight: normal;
+    line-height: 16px;
+    z-index: 9;
+}
+
+.acfft_flexible_templates:after{
+    font-family: "acf";
+    content: '\e80f';
+    position: absolute;
+    right: 14px;
+    top: 4px;
+}
+
+.acfft_flexible_templates .acfft-dropdown{
+    position: absolute;
+    display: none;
+    background: #fff;
+    border: 1px solid #999;
+    border-radius: 2px;
+    right: -1px;
+    top: 100%;
+    width: 250px;
+    height: auto;
+    max-height: 204px;
+    overflow: auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.acfft_flexible_templates .acfft-dropdown .acfft-option,
+.acfft_flexible_templates .acfft-dropdown .info{
+    padding: 8px 5px 8px 15px;
+    color: #000;
+    text-shadow: none;
+    border-bottom: 1px solid #f1f1f1;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: normal;
+}
+.acfft_flexible_templates .acfft-dropdown .acfft-option:hover{
+    background: #efefef;
+}
+
+
+.acfft_flexible_templates .acfft-dropdown .acfft-option .acfft-select{
+    display: block;
+    float: left;
+    width: 180px;
+    cursor: pointer;
+}
+
+.acfft_flexible_templates .acfft-dropdown .acfft-option .acfft-remove{
+    display: block;
+    float: right;
+    width: 30px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+.acfft_flexible_templates .acfft-dropdown .acfft-option .acfft-remove:after{
+    font-family: "acf";
+    content: '\e801';
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 14px;
+    color: #999;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -9px 0 0 -9px;
+}
+
+.acfft_flexible_templates .acfft-dropdown .acfft-option .acfft-remove:hover:after{
+    background-color: #F55E4F;
+    border-color: #F55E4F;
+    color: #fff;
+}
+
+.acfft_flexible_templates:hover .acfft-dropdown{
+    display: block;
+}
+
+.acf-ft-save-error{
+    float: left;
+    width: 100%;
+    padding: 5px;
+    color: #F55E4F;
+}
+
+.acf-ft-save-error.saved{
+    color: green;
+}
