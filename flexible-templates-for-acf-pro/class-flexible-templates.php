@@ -103,11 +103,12 @@ if( ! class_exists('Flexible_Templates') ) :
 	    }
 
 		public function filter_get_field_label($label, $field){
-			// echo '<pre>';
-			// print_r( $field );
-			// echo '</pre>';
+			global $post;
+			//echo '<pre>';
+			//print_r( $post );
+			//echo '</pre>';
 
-			if( $field['type'] === 'flexible_content' ) {
+			if( $field['type'] === 'flexible_content' && $post->post_type != 'acf-field-group' ) {
 				$label .= $this->get_templates_list();
 			}
 
