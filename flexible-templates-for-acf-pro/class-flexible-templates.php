@@ -12,16 +12,22 @@ if( ! class_exists('Flexible_Templates') ) :
 			
 			// admin
 			if( is_admin() ) {
-				add_action('admin_head', array($this, 'input_admin_enqueue_scripts') );
 
-				add_filter("acf/get_field_label", array($this, 'filter_get_field_label'), 10, 2);
-
-				add_action('wp_ajax_ajax_template_save', array($this,'ajax_template_save') );
-				add_action('wp_ajax_ajax_template_load', array($this,'ajax_template_load') );
-				add_action('wp_ajax_ajax_template_remove', array($this,'ajax_template_remove') );
+				add_action('init', array($this, 'add_actions_filters') );
 				
 			}
 
+		}
+
+		public function add_actions_filters(){
+			add_action('admin_head', array($this, 'input_admin_enqueue_scripts') );
+
+			add_filter("acf/get_field_label", array($this, 'filter_get_field_label'), 1000, 2);
+
+			add_action('wp_ajax_ajax_template_save', array($this,'ajax_template_save') );
+			add_action('wp_ajax_ajax_template_load', array($this,'ajax_template_load') );
+			add_action('wp_ajax_ajax_template_remove', array($this,'ajax_template_remove') );
+			
 		}
 
 
@@ -104,11 +110,13 @@ if( ! class_exists('Flexible_Templates') ) :
 
 		public function filter_get_field_label($label, $field){
 			global $post;
-			//echo '<pre>';
-			//print_r( $post );
-			//echo '</pre>';
+			/*
+			echo '<pre>';
+			print_r( $post );
+			echo '</pre>';
+			*/
 
-			if( $field['type'] === 'flexible_content' && $post->post_type != 'acf-field-group' ) {
+			if( $field['type'] == 'flexible_content' && $post->post_type != 'acf-field-group' ) {
 				$label .= $this->get_templates_list();
 			}
 
