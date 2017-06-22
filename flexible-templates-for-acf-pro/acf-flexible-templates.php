@@ -15,7 +15,7 @@ Author URI: http://blueglass.ee
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-$acf_ft_version 	= '0.1';
+$acf_ft_version 	= '0.2';
 
 
 register_activation_hook( __FILE__, 'acf_ft_install' );
