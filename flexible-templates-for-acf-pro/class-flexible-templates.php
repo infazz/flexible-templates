@@ -1,8 +1,5 @@
 <?php 
-
-
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
 
 if( ! class_exists('Flexible_Templates') ) :
 
