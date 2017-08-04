@@ -2,6 +2,7 @@
 WP Plugin that allows saving templates of the "Flexible Content" field, for easy and fast use of them on other pages. 
 
 ## Install / How to use
+
 Install as any other wp plugin and activate. 
 
 When you go to page that has Flexible Content, you'll notice a button on top left corner with saved templates. Hover the button to see a dropdown with template selection, click the template name to load it. Be aware that loading the template will overwrite the existing one. You also able to delete templates from there, by pressing the "minus" button/circle.
