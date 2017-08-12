@@ -1,3 +1,7 @@
+jQuery.expr[':'].parents = function(a,i,m){
+	return jQuery(a).parents(m[3]).length < 1;
+};
+
 (function($){
 
 	
@@ -15,18 +19,20 @@
 
 			$('.acf-field-flexible-content .values').next().prepend( button );
 
+			
+			
 
-
-			$('.acf-ft-save').live('click', function(e){
+			$('.acf-ft-save').on('click', function(e){
 				e.preventDefault();
 				
 				var flex_cont = $(this).parents('.acf-flexible-content');
-
-				var template = flex_cont.find('.values').html();
+				
+				var template = flex_cont.find('.values').filter(':parents(.clones)');
+				template = template.html();
 				template = '<div class="values">'+template+'</div>';
 
 				//flex_cont.find('.values').remove();
-
+				
 				acf_ft_save( this, template );
 			});
 
@@ -37,7 +43,6 @@
 
 				var template_name = $('.acf-ft-template-name').val();
 
-				//console.log( $('.acf-ft-template-name').val() );
 
 				if( template_name != '' ){
 					var json = {
@@ -103,7 +108,7 @@
 
 			}
 
-			$('.acfft-remove').live('click', function(){
+			$('.acfft-remove').on('click', function(){
 
 				var self = this;
 				var template_name = $(this).data('value');
@@ -132,14 +137,14 @@
 			});
 
 
-			$('.acfft-select').live('click', function(){
+			$('.acfft-select').on('click', function(){
 				var self = this;
 				var template_name = $(this).data('value');
 
 				var flex_cont = $(this).parents('.acf-field-flexible-content');
 				flex_cont.find('.values').remove();
 
-				console.log('value', template_name);
+				//console.log('value', template_name);
 
 				if( template_name !== '' ){
 					var json = {
@@ -188,6 +193,45 @@
 				$(this).attr('value', value);
 			});
 
+			
+	
+			
+			function bindEvents(){
+				$('.acf-input input[type="radio"]').unbind('change').bind('change', function(){
+					var name = $(this).attr('name');
+					var inpts = $('input[name="'+name+'"]').prop('checked', false).removeAttr( "checked" );
+					//console.log(name,inpts  );
+					$(this).prop('checked', true).attr('checked', 'checked');
+				});
+				
+				$('.acf-input input[type="checkbox"]').unbind('change').bind('change', function(){
+					//console.log( $(this).prop('checked'), $(this) );
+					if( $(this).prop('checked') == true ){
+						$(this).prop('checked', true).attr('checked', 'checked');
+					}else{
+						$(this).prop('checked', false).removeAttr( "checked" );
+					}
+				});
+			}
+			
+			if( typeof acf !== 'undefined' ){
+				acf.add_action('ready', function( $el ){
+					bindEvents();
+				});
+				acf.add_action('load', function( $el ){
+					bindEvents();
+				});
+		
+				acf.add_action('append', function( $el ){
+					bindEvents();
+				});
+				
+				setTimeout(function(){
+					bindEvents();
+				}, 2000);
+			}
+			
+			
 
 			setInterval(function(){
 
