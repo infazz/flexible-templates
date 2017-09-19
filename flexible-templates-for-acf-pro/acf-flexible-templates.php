@@ -1,14 +1,13 @@
 <?php
 /**
  * @package Flexible_Templates
- * @version 0.1
  */
 /*
 Plugin Name: Flexible Templates for ACF PRO
 Plugin URI: ttp://blueglass.ee/plugins/flexiblep-templates-for-acf
 Description: Allows saving templates of the "Flexible Content" field, for easy and fast use of them on other pages.  
 Author: Gleb Makarov
-Version: 0.1
+Version: 0.2
 Author URI: http://blueglass.ee
 */
 
