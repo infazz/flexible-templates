@@ -25,6 +25,9 @@ register_activation_hook( __FILE__, 'acf_ft_install' );
 function acf_ft_install(){
 	global $wpdb;
 
+	require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
+
+	// TEMPLATES Table
 	$acf_ft_table_name 	= $wpdb->prefix . 'flexible_templates_acf';
 
 	if($wpdb->get_var( "show tables like '$acf_ft_table_name'" ) != $acf_ft_table_name) {
@@ -34,17 +37,39 @@ function acf_ft_install(){
 			time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			name text NOT NULL,
 			template longblob NOT NULL,
+			post_type text NOT NULL,
 			PRIMARY KEY (id)
 		);";
 
-		require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
 		dbDelta( $sql );
+	}
+	
+}
+
+add_action('init', 'acf_ft_updatetables');
+function acf_ft_updatetables(){
+	global $wpdb, $acf_ft_version;
+
+	$acf_ft_table_updated = get_option( 'acf_ft_table_updated' );
+	$acf_ft_table_name 	= $wpdb->prefix . 'flexible_templates_acf';
+
+	if( !$acf_ft_table_updated || $acf_ft_table_updated == '' ) {
+
+		$sql = "ALTER TABLE $acf_ft_table_name ADD post_type text NOT NULL AFTER template";
+
+		$row = $wpdb->get_results(  "SELECT post_type FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '$acf_ft_table_name'"  );
+
+		if(empty($row)){
+		   $wpdb->query("ALTER TABLE $acf_ft_table_name ADD post_type text NOT NULL AFTER template");
+		}
+
+		update_option( 'acf_ft_table_updated', 'updated' );
 	}
 }
 
 
 
-function acfft_add_template( $name, $template ) {
+function acfft_add_template( $name, $template, $post_type = 'page' ) {
 	global $wpdb;
 	
 	$acf_ft_table_name 	= $wpdb->prefix . 'flexible_templates_acf';
@@ -57,6 +82,7 @@ function acfft_add_template( $name, $template ) {
 			'time' 		=> current_time( 'mysql' ), 
 			'name' 		=> $name, 
 			'template' 	=> $template, 
+			'post_type' => $post_type, 
 		) 
 	);
 
@@ -77,12 +103,12 @@ function acfft_remove_template( $name ) {
 
 
 
-function acfft_get_templates(){
+function acfft_get_templates( $post_type = 'page' ){
 	global $wpdb;
 
 	$acf_ft_table_name 	= $wpdb->prefix . "flexible_templates_acf";
 
-	$row = $wpdb->get_results( "SELECT * FROM $acf_ft_table_name" );
+	$row = $wpdb->get_results( "SELECT * FROM $acf_ft_table_name WHERE post_type = '$post_type'" );
 	if( !empty($row) ) return $row; 
 
 	return false;

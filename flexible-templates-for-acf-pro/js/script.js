@@ -19,6 +19,9 @@ jQuery.expr[':'].parents = function(a,i,m){
 
 			$('.acf-field-flexible-content .values').next().prepend( button );
 
+			$('.acf-field-flexible-content .clones .acf-ft-save-wrap').remove();
+			$('.acf-field-flexible-content .layout .acf-ft-save-wrap').remove();
+			
 			
 			
 
@@ -42,13 +45,16 @@ jQuery.expr[':'].parents = function(a,i,m){
 				$('.acf-ft-save-error').text( '' ).hide();
 
 				var template_name = $('.acf-ft-template-name').val();
+				var pt = $('#post_type').val();
 
+				//console.log( $('.acf-ft-template-name') );
 
 				if( template_name != '' ){
 					var json = {
 						action: 'ajax_template_save',
 						name: template_name,
-						template: escape(template)
+						template: escape(template),
+						post_type: pt
 					};
 					$.ajax({
 						url: acfft.ajaxurl,
@@ -254,18 +260,21 @@ jQuery.expr[':'].parents = function(a,i,m){
 					//}
 				});
 
-			}, 800);
+			}, 1000);
 
 			function tinymceUpdateContent( id ){
 				var editor_content = '';
 
 				if ( tinyMCE.get( id ) && typeof tinyMCE !== 'undefined' && tinyMCE.get( id ) !== null ) {
 					editor_content = tinyMCE.get( id ).getContent();
-					$('#'+id).val( editor_content ).text( editor_content );
+					
+					if( editor_content != $('#'+id).text() )
+						$('#'+id).val( editor_content ).text( editor_content );
 					
 				}else{
 					editor_content = $('#'+id).val();
-					$('#'+id).text( editor_content );
+					$('#'+id).text( editor_content ).val( editor_content ).trigger('change');
+					//console.log( 'xxxx', editor_content );
 				}
 
 				//console.log( 'val', id, $('#'+id).val() );

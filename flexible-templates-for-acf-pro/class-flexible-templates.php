@@ -1,5 +1,8 @@
 <?php 
+
+
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 
 if( ! class_exists('Flexible_Templates') ) :
 
@@ -61,19 +64,22 @@ if( ! class_exists('Flexible_Templates') ) :
 		}
 
 		public function ajax_template_save() {
+			global $post;
 
 			if( isset($_POST['name']) && $_POST['template'] != '' ){
 
 				$name 		= strip_tags($_POST['name']);
 				$template 	= strip_tags($_POST['template']);
+				$pt 		= strip_tags($_POST['post_type']);
 
 				$check 		= acfft_check_name( $name );
 
 				if( $check === 'ok' ){
-					acfft_add_template( $name, $template );
+					acfft_add_template( $name, $template, $pt );
+
+					echo $check;
 				}
 
-				echo $check;
 			}else{
 				echo 'not ok';
 			}
@@ -127,26 +133,52 @@ if( ! class_exists('Flexible_Templates') ) :
 
 
 		public function get_templates_list(){
-			$templates = acfft_get_templates();
+			global $post;
 
+			$post_type = $post->post_type;
+
+			$templates = acfft_get_templates( $post_type );
+
+			// old templates withour post_type
+			$depricated_templates = acfft_get_templates( '' );
 
 			$out = '<div class="acfft_flexible_templates button-primary">';
 				$out .= '<div class="selected">'.__("Saved Template's", 'acf-ft').'</div>';
 
-				if( $templates ){
+				if( $templates || $depricated_templates ){
 					//sorting alphabetically
 					usort($templates, array($this, 'cmp'));
 					$i = 1;
-					$out .= '<div class="acfft-dropdown">';
-						foreach ($templates as $key => $tmp) {
-							//print_r($tmp);
-							$name = $tmp->name;
-
-							$out .= '<div class="acfft-option" data-value="'.$name.'">';
-								$out .= '<span class="acfft-select" data-value="'.$name.'">'.$i.' - '.$name.'</span>';
-								$out .= '<span class="acfft-remove" data-value="'.$name.'">&nbsp;</span>';
+					$out .= '<div class="acfft-dropdown" style="display: none;">';
+						if($templates){
+							$out .= '<div class="acfft-option acfft-separator new" data-value="'.$name.'">';
+								$out .= '<span>Templates for: "'.$post_type.'"</span>';
 							$out .= '</div>';
-							$i++;
+							foreach ($templates as $key => $tmp) {
+								//print_r($tmp);
+								$name = $tmp->name;
+
+								$out .= '<div class="acfft-option" data-value="'.$name.'">';
+									$out .= '<span class="acfft-select" data-value="'.$name.'">'.$i.' - '.$name.'</span>';
+									$out .= '<span class="acfft-remove" data-value="'.$name.'">&nbsp;</span>';
+								$out .= '</div>';
+								$i++;
+							}
+						}
+						if( $depricated_templates ){
+							$out .= '<div class="acfft-option acfft-separator" data-value="'.$name.'">';
+								$out .= '<span>Other templates</span>';
+							$out .= '</div>';
+							foreach ($depricated_templates as $key => $tmp) {
+								//print_r($tmp);
+								$name = $tmp->name;
+
+								$out .= '<div class="acfft-option" data-value="'.$name.'">';
+									$out .= '<span class="acfft-select" data-value="'.$name.'">'.$i.' - '.$name.'</span>';
+									$out .= '<span class="acfft-remove" data-value="'.$name.'">&nbsp;</span>';
+								$out .= '</div>';
+								$i++;
+							}
 						}
 					$out .= '</div>';
 				}else{
