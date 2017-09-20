@@ -1,5 +1,5 @@
 # Flexible Templates for ACF PRO
-WP Plugin that allows saving templates of the "Flexible Content" field, for easy and fast use of them on other pages. 
+WP Plugin that allows saving templates of the "Flexible Content" field, for easy and fast re-use of them on other pages. It also separates templates by post types.
 
 ## Install / How to use
 
