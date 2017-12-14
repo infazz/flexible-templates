@@ -115,7 +115,11 @@ jQuery.expr[':'].parents = function(a,i,m){
 			}
 
 			$('.acfft-remove').on('click', function(){
-
+				
+				if (!window.confirm("Are you sure you wish to delete this template?")) { 
+				  return;
+				}
+				
 				var self = this;
 				var template_name = $(this).data('value');
 
