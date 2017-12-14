@@ -1,17 +1,17 @@
-.acf-flexible-content li.acf-ft-save-wrap{
+.acf-flexible-content .acf-ft-save-wrap{
     float: left;
     margin-left: 0;
     width: 50%;
     min-width: 400px;
 }
 
-.acf-flexible-content li.acf-ft-save-wrap .acf-ft-template-name{
+.acf-flexible-content .acf-ft-save-wrap .acf-ft-template-name{
     float: left;
     width: 62%;
     margin-right: 1%;
 }
 
-.acf-flexible-content li.acf-ft-save-wrap .acf-ft-save{
+.acf-flexible-content .acf-ft-save-wrap .acf-ft-save{
     float: left;
     width: 37%;
     text-align: center;
