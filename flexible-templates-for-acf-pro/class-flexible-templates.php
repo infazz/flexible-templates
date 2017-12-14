@@ -143,7 +143,7 @@ if( ! class_exists('Flexible_Templates') ) :
 			$depricated_templates = acfft_get_templates( '' );
 
 			$out = '<div class="acfft_flexible_templates button-primary">';
-				$out .= '<div class="selected">'.__("Saved Template's", 'acf-ft').'</div>';
+				$out .= '<div class="selected">'.__("Saved Templates", 'acf-ft').'</div>';
 
 				if( $templates || $depricated_templates ){
 					//sorting alphabetically
@@ -183,7 +183,7 @@ if( ! class_exists('Flexible_Templates') ) :
 					$out .= '</div>';
 				}else{
 					$out .= '<div class="acfft-dropdown">';
-						$out .= '<div class="info">'.__("To save template, scroll to the bottom of your flexible layout, input name and hit save button.", "acf-ft").'</div>';
+						$out .= '<div class="info">'.__("To save a template, scroll to the bottom of your flexible layout, input name and hit save button.", "acf-ft").'</div>';
 					$out .= '</div>';
 				}
 
