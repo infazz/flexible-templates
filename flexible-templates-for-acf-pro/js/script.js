@@ -11,11 +11,11 @@ jQuery.expr[':'].parents = function(a,i,m){
 
 		//if( $('.acf-field-flexible-content').length ){
 
-			var button = '<li class="acf-ft-save-wrap">';
+			var button = '<div class="acf-ft-save-wrap">';
 				button += '<input type="text" class="acf-ft-template-name" value="" placeholder="'+acfft.tpl_name+'">';
 					button += '<a href="#save_template" class="acf-ft-save acf-button button button-secondary">'+acfft.tpl_save+'</a>';
 					button += '<div class="acf-ft-save-error"></div>';
-				button += '</li>';
+				button += '</div>';
 
 			$('.acf-field-flexible-content .values').next().prepend( button );
 
